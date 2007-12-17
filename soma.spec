@@ -22,7 +22,6 @@ BuildRequires:  openssl-devel
 BuildRequires:  SDL-devel
 BuildRequires:  perl
 BuildRequires:  tetex-texi2html
-BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 Basical soma suite. It contains somad, the broadcast sheduling demon,
