@@ -10,6 +10,7 @@ Version:	%{version}
 Release:	%{release}
 Summary:	Basical soma suite
 Group:		System/Servers
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 License:	GPL
 URL:		http://www.somasuite.org/
 Source0:	http://www.somasuite.org/src/%{name}-%{version}.tar.gz
