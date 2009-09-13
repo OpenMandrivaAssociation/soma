@@ -1,6 +1,6 @@
 %define name	soma
 %define version 2.4
-%define release %mkrel 5
+%define release %mkrel 6
 %define major	0
 %define libname	%mklibname %{name} %{major}
 %define develname %mklibname -d %{name}
@@ -10,10 +10,11 @@ Version:	%{version}
 Release:	%{release}
 Summary:	Basical soma suite
 Group:		System/Servers
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 License:	GPL
 URL:		http://www.somasuite.org/
 Source0:	http://www.somasuite.org/src/%{name}-%{version}.tar.gz
+Patch0:     soma-2.4-fix-format-errors.patch
+Patch1:     soma-2.4-fix-open-calls.patch
 BuildRequires:	termcap-devel
 BuildRequires:	readline-devel
 BuildRequires:  ncurses-devel
@@ -23,6 +24,8 @@ BuildRequires:  SDL-devel
 BuildRequires:  perl
 BuildRequires:  tetex-texi2html
 BuildRequires:  libxml2-devel
+BuildRequires:  ffmpeg-devel
+BuildRoot: %{_tmppath}/%{name}-%{version}
 
 %description
 Basical soma suite. It contains somad, the broadcast sheduling demon,
@@ -50,8 +53,11 @@ to compile applications linked with %{name} libraries.
 
 %prep
 %setup -q
+%patch0 -p 1
+%patch1 -p 1
 
 %build
+export LDFLAGS="$LDFLAGS -lm"
 %configure2_5x
 %make
 
