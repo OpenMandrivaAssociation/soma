@@ -1,7 +1,7 @@
 %define name	soma
 %define version 2.4
-%define release %mkrel 6
-%define major	0
+%define release %mkrel 7
+%define major	2
 %define libname	%mklibname %{name} %{major}
 %define develname %mklibname -d %{name}
 
@@ -17,16 +17,11 @@ Patch0:     soma-2.4-fix-format-errors.patch
 Patch1:     soma-2.4-fix-open-calls.patch
 Patch2: soma-2.4-ffmpeg.patch
 Patch3: soma-2.4-link.patch
-BuildRequires:	termcap-devel
 BuildRequires:	readline-devel
-BuildRequires:  ncurses-devel
-BuildRequires:  freetype-devel
 BuildRequires:  openssl-devel
-BuildRequires:  SDL-devel
-BuildRequires:  perl
-BuildRequires:  tetex-texi2html
 BuildRequires:  libxml2-devel
 BuildRequires:  ffmpeg-devel
+BuildRequires:	confuse-devel
 BuildRoot: %{_tmppath}/%{name}-%{version}
 
 %description
@@ -37,6 +32,7 @@ configuration files.
 %package -n %{libname}
 Summary:	Libraries for %{name}
 Group:		System/Libraries
+Obsoletes:	%{_lib}soma0 < 2.4-7
 
 %description -n	%{libname}
 This package contains the libraries needed to run programs dynamically
@@ -93,7 +89,8 @@ rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/*.so.*
+%{_libdir}/*.so.%{major}
+%{_libdir}/*.so.%{major}.*
 
 %files -n %{develname}
 %defattr(-,root,root)
