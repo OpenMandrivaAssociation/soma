@@ -15,6 +15,8 @@ URL:		http://www.somasuite.org/
 Source0:	http://www.somasuite.org/src/%{name}-%{version}.tar.gz
 Patch0:     soma-2.4-fix-format-errors.patch
 Patch1:     soma-2.4-fix-open-calls.patch
+Patch2: soma-2.4-ffmpeg.patch
+Patch3: soma-2.4-link.patch
 BuildRequires:	termcap-devel
 BuildRequires:	readline-devel
 BuildRequires:  ncurses-devel
@@ -55,10 +57,12 @@ to compile applications linked with %{name} libraries.
 %setup -q
 %patch0 -p 1
 %patch1 -p 1
+%patch2 -p0
+%patch3 -p0
 
 %build
-export LDFLAGS="$LDFLAGS -lm"
-%configure2_5x
+autoreconf -fi
+%configure2_5x --enable-ffmpeg
 %make
 
 %install
