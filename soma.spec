@@ -61,7 +61,10 @@ to compile applications linked with %{name} libraries.
 %patch3 -p0
 
 %build
-autoreconf -fi
+libtoolize
+aclocal
+autoconf
+automake
 %configure2_5x --enable-ffmpeg
 %make
 
