@@ -1,6 +1,6 @@
 %define name	soma
 %define version 2.4
-%define release %mkrel 8
+%define release %mkrel 9
 %define major	2
 %define libname	%mklibname %{name} %{major}
 %define develname %mklibname -d %{name}
