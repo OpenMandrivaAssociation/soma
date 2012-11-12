@@ -1,0 +1,83 @@
+--- configure.ac.ffmpeg	2010-02-10 16:15:32.000000000 +0100
++++ configure.ac	2010-02-10 16:20:17.000000000 +0100
+@@ -146,12 +146,12 @@
+   AC_DEFINE(ENABLE_FFMPEG)
+ 
+   # Normal mode:
+-  AC_CHECK_HEADER(ffmpeg/avformat.h,,AC_MSG_ERROR(libavformat is required to compile soma))
++  AC_CHECK_HEADER(libavformat/avformat.h,,AC_MSG_ERROR(libavformat is required to compile soma))
+   AC_CHECK_LIB(avformat,av_open_input_file, HAVE_AVFORMAT=yes, HAVE_AVFORMAT=no)
+   
+   # Avformat only ?
+   if test "$HAVE_AVFORMAT" = yes; then
+-    LDFLAGS="$LDFLAGS -lavformat"
++    LIBS="$LIBS -lavformat"
+   fi
+   
+   # Avformat + avcodec ?
+@@ -159,16 +159,16 @@
+     AC_CHECK_LIB(avcodec,av_malloc, HAVE_AVCODEC=yes, HAVE_AVCODEC=no)
+   
+     if test "$HAVE_AVCODEC" = yes; then
+-      LDFLAGS_OLD="$LDFLAGS"
+-      LDFLAGS="$LDFLAGS -lavcodec"
++      LIBS_OLD="LIBS"
++      LIBS="$LIBS -lavcodec"
+   
+       AC_CHECK_LIB(avformat,av_find_stream_info,
+                    HAVE_AVFORMAT=yes, HAVE_AVFORMAT=no)
+   
+       if test "$HAVE_AVFORMAT" = no; then
+-        LDFLAGS="$LDFLAGS_OLD"
++        LIBS="$LIBS_OLD"
+       else
+-        LDFLAGS="$LDFLAGS -lavformat"
++        LIBS="$LIBS -lavformat"
+       fi
+     fi
+   fi
+@@ -201,7 +201,7 @@
+                       HAVE_AVFORMAT=yes, HAVE_AVFORMAT=no)
+   
+     if test $HAVE_AVFORMAT = yes; then
+-      LDFLAGS="$LDFLAGS $CHECK_AVFORMAT_LIBS"
++      LIBS="$LIBS $CHECK_AVFORMAT_LIBS"
+       CFLAGS="$CFLAGS $CHECK_AVFORMAT_CFLAGS"
+     fi
+   fi
+--- daemon/somad.h.ffmpeg	2010-02-10 16:45:02.000000000 +0100
++++ daemon/somad.h	2010-02-10 16:45:30.000000000 +0100
+@@ -30,8 +30,8 @@
+ #include <libxml/parser.h>
+ 
+ #ifdef ENABLE_FFMPEG
+-#  include <ffmpeg/avcodec.h>
+-#  include <ffmpeg/avformat.h>
++#  include <libavcodec/avcodec.h>
++#  include <libavformat/avformat.h>
+ #else
+ #  include "avcodec.h"
+ #  include "avformat.h"
+--- lib/Makefile.am.ffmpeg	2010-02-10 16:51:58.000000000 +0100
++++ lib/Makefile.am	2010-02-10 16:52:34.000000000 +0100
+@@ -28,5 +28,7 @@
+ if !ENABLE_FFMPEG
+ libsoma_la_LIBADD = \
+ 	$(top_builddir)/ffmpeg/ffmpeg/libavformat/libavformat.la
++else
++libsoma_la_LIBADD = -lavcodec
+ endif
+ 
+--- lib/libsoma.h.ffmpeg	2010-02-10 16:48:46.000000000 +0100
++++ lib/libsoma.h	2010-02-10 16:49:14.000000000 +0100
+@@ -50,8 +50,8 @@
+ #include "../include/code.h"
+ 
+ #ifdef ENABLE_FFMPEG
+-#  include <ffmpeg/avcodec.h>
+-#  include <ffmpeg/avformat.h>
++#  include <libavcodec/avcodec.h>
++#  include <libavformat/avformat.h>
+ #else
+ #  include "avcodec.h"
+ #  include "avformat.h"

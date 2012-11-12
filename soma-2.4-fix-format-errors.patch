@@ -1,0 +1,12 @@
+diff -Naur -x '*~' soma-2.4/daemon/log.c soma-2.4-fix-format-errors/daemon/log.c
+--- soma-2.4/daemon/log.c	2007-02-17 15:33:52.000000000 +0100
++++ soma-2.4-fix-format-errors/daemon/log.c	2009-09-13 16:54:28.000000000 +0200
+@@ -114,7 +114,7 @@
+   va_end (va);
+ 
+   if (abs (type) < SOMA_DEBUG_ALL && type > -1)
+-    snprintf (conf->Status, SOMA_MAX_BUFF, s);
++    snprintf (conf->Status, SOMA_MAX_BUFF, "%s", s);
+ 
+   if (conf->Debug < abs (type))
+     return;

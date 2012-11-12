@@ -1,0 +1,11 @@
+--- configure.ac.link	2010-02-10 16:21:01.000000000 +0100
++++ configure.ac	2010-02-10 16:21:44.000000000 +0100
+@@ -102,7 +102,7 @@
+ fi
+ 
+ PKG_CHECK_MODULES(CHECK_XML, libxml-2.0 >= 2.0.0,, AC_MSG_ERROR(libxml2 is requred to compile soma))
+-LDFLAGS="$LDFLAGS $CHECK_XML_LIBS"
++LIBS="$LIBS $CHECK_XML_LIBS"
+ CFLAGS="$CFLAGS $CHECK_XML_CFLAGS"
+ 
+ AC_CHECK_FILE(/dev/null)

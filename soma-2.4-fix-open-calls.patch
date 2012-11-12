@@ -1,0 +1,21 @@
+diff -Naur -x '*~' soma-2.4/daemon/socket.c soma-2.4-fix-open-calls/daemon/socket.c
+--- soma-2.4/daemon/socket.c	2007-02-17 15:52:13.000000000 +0100
++++ soma-2.4-fix-open-calls/daemon/socket.c	2009-09-13 17:09:52.000000000 +0200
+@@ -978,7 +978,7 @@
+ 
+ 	  unlink (conf->Old_Palinsesto);
+ 
+-	  if ((f1 = open (conf->Old_Palinsesto, O_WRONLY | O_CREAT)) < 0)
++	  if ((f1 = open (conf->Old_Palinsesto, O_WRONLY | O_CREAT, S_IRWXU)) < 0)
+ 	    {
+ 	      UNLOCK ();
+ 
+@@ -1225,7 +1225,7 @@
+ 
+ 	  unlink (conf->Old_Spot);
+ 
+-	  if ((f1 = open (conf->Old_Spot, O_WRONLY | O_CREAT)) < 0)
++	  if ((f1 = open (conf->Old_Spot, O_WRONLY | O_CREAT, S_IRWXU)) < 0)
+ 	    {
+ 	      UNLOCK ();
+ 
