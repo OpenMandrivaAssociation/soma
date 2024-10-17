@@ -11,7 +11,7 @@ Release:	%{release}
 Summary:	Basical soma suite
 Group:		System/Servers
 License:	GPL
-URL:		http://www.somasuite.org/
+URL:		https://www.somasuite.org/
 Source0:	http://www.somasuite.org/src/%{name}-%{version}.tar.gz
 Patch0:     soma-2.4-fix-format-errors.patch
 Patch1:     soma-2.4-fix-open-calls.patch
