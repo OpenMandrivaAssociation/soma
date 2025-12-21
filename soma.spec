@@ -17,6 +17,11 @@ Patch0:     soma-2.4-fix-format-errors.patch
 Patch1:     soma-2.4-fix-open-calls.patch
 Patch2: soma-2.4-ffmpeg.patch
 Patch3: soma-2.4-link.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	readline-devel
 BuildRequires:  openssl-devel
 BuildRequires:  libxml2-devel
